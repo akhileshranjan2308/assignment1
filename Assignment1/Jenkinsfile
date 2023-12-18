@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    tools {
+        // Specify the Git tool (you can adjust the name)
+        git 'GitTool'
+    }
     stages {
         stage('Checkout') {
             steps {
