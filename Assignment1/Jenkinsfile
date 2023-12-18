@@ -1,32 +1,26 @@
 pipeline {
     agent any
-    tools {
-        // Specify the Git tool (you can adjust the name)
-        git 'GitTool'
-    }
+
     stages {
+        stage('Debug') {
+            steps {
+                script {
+                    echo "Current directory: ${pwd()}"
+                    echo "Workspace contents:"
+                    sh "ls -la"
+                }
+            }
+        }
+
         stage('Checkout') {
             steps {
-                // Clean workspace and checkout code from the specified branch
-                cleanWs()
-                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], userRemoteConfigs: [[url: 'https://github.com/akhileshranjan2308/assignment1', refspec: '+refs/heads/*:refs/remotes/origin/*', changelog: true, submodules: []]], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'pipeline']])
+                script {
+                    // Check out code from the Develop branch
+                    checkout([$class: 'GitSCM', branches: [[name: '*/develop']], userRemoteConfigs: [[url: 'https://github.com/akhileshranjan2308/assignment1']]])
+                }
             }
         }
 
-        stage('Build') {
-            steps {
-                // Add your build steps here if needed
-                echo 'Building...'
-            }
-        }
-
-        // Add more stages as needed
-
-    }
-
-    post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
+        // ... (other stages)
     }
 }
