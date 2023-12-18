@@ -9,7 +9,7 @@ pipeline {
             steps {
                 // Clean workspace and checkout code from the specified branch
                 cleanWs()
-                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], userRemoteConfigs: [[url: 'https://github.com/akhileshranjan2308/assignment1']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], userRemoteConfigs: [[url: 'https://github.com/akhileshranjan2308/assignment1', refspec: '+refs/heads/*:refs/remotes/origin/*', changelog: true, submodules: []]], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'pipeline']])
             }
         }
 
